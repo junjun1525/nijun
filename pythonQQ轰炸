@@ -1,0 +1,83 @@
+- * - coding: utf - 8 -
+*-
+import win32gui
+import win32con
+import win32clipboard as fuzhi
+import os
+import time
+import random
+
+print('''
+                       |                 ------—_-------
+                       |                        |  
+                       |                        |
+            ^          |           O            |           ^
+                       |                        |
+                       |_________      |________|       
+@@@@@@@$$$$$###############&&&&&&&&&++++++*****%###############
+############$$$$$$$$$!!!!!!!!!!%%%%%$$$$$$$$$$$$$$$$$$$$$$$$$$$
+欢迎你使用本QQ轰炸器；开发者：ZZY
+#######################%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%^O^
+请根据索引操作，谢谢（PS:请勿用于非法用途，仅限娱乐，请量力而为，因为并未开发多线程，小心电脑死机!!!）
+################$$$$$$$$$$$$$$$$$$$$$$$$$$$$@@@@@@@@@###########################
+''')
+print('请按键继续')
+os.system('pause')
+print('按键继续!!!!')
+os.system('pause')
+msg = []
+m = input('请输入您发送的内容的次数，待会儿会随机发送你的内容:')
+m = int(m)
+for i in range(1, m + 1):
+        clj = input('请输入你发送的内容:')
+        msg.append(clj)
+name = input('请输入被轰炸人的窗口名，即对话框名,对方昵称:')  # 窗口名
+number = input('请输入发送的次数:')
+number = int(number)
+number1 = number + 1
+sleep = input('请输入每次发送的延时，PS：如果不需要，则输入0，温馨提示，最好设置延迟，不然程序可能会断的哦^O^:')
+sleep = int(sleep)
+if sleep == 0:
+        ########################设置条件循环，延时为0和延时大于0的两种2种情况##############################################
+        # 开始循环发送#################
+        start_time = time.time()
+        for i in range(1, number1):
+                nj = random.randint(0, m - 1)  #####每次生成随机数#########
+                #######################加入剪切板中############################
+                fuzhi.OpenClipboard()
+                fuzhi.EmptyClipboard()
+                fuzhi.SetClipboardData(win32con.CF_UNICODETEXT, msg[nj])
+                fuzhi.CloseClipboard()
+                #########################获取窗口句柄########################
+                handle = win32gui.FindWindow(None, name)  # 如果获得句柄，就执行if语句后的东西，如没有该类或窗口名则返回0
+                #############填充消息##############
+                if handle != 0:
+                        win32gui.SendMessage(handle, 770, 0, 0)
+                        win32gui.SendMessage(handle, win32con.WM_KEYDOWN, win32con.VK_RETURN, 0)
+                        print('发送成功!', '这是第', i, '次发送!!!')
+                else:
+                        print('错误，请重试', '这是第', i, '次发送!!!')
+        last_time = time.time()
+        print('从您输入完信息到轰炸完成，共耗时:', last_time - start_time, 's')
+elif sleep > 0:
+        # 开始循环发送#################
+        start_time = time.time()
+        for i in range(1, number1):
+                time.sleep(sleep)
+                nj = random.randint(0, m - 1)  #####每次生成随机数#########
+                #######################加入剪切板中############################
+                fuzhi.OpenClipboard()
+                fuzhi.EmptyClipboard()
+                fuzhi.SetClipboardData(win32con.CF_UNICODETEXT, msg[nj])
+                fuzhi.CloseClipboard()
+                #########################获取窗口句柄########################
+                handle = win32gui.FindWindow(None, name)  # 如果获得句柄，就执行if语句后的东西，如没有该类或窗口名则返回0
+                #############填充消息##############
+                if handle != 0:
+                        win32gui.SendMessage(handle, 770, 0, 0)
+                        win32gui.SendMessage(handle, win32con.WM_KEYDOWN, win32con.VK_RETURN, 0)
+                        print('发送成功!', '这是第', i, '次发送!!!')
+                else:
+                        print('错误，请重试', '这是第', i, '次发送!!!')
+        last_time = time.time()
+        print('从您输入完信息到轰炸完成，共耗时:', last_time - start_time, 's')
